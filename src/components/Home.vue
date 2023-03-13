@@ -1,6 +1,10 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light shadow" > 
-  <a class="navbar-brand" href="#"><i class="fa-solid fa-language" style="font-size: 50px;"></i></a>  
+
+  <router-link to="/" class="navbar-brand">  
+    <i class="fa-solid fa-language" style="font-size: 50px;"></i> 
+  </router-link>
+  
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>  
   </button>
@@ -19,12 +23,19 @@
     </ul>
   </div>
 </nav> 
-  <router-view></router-view> 
+  <router-view v-slot="{ Component, route }">
+      <Transition name="slide-fade" mode="out-in">
+        <div :key="route.name">  
+          <component :is="Component"></component>
+        </div>
+      </Transition>
+    </router-view>
+  
 </template> 
 
 <script>
 export default {
-  name: 'Home', 
+  name: 'HomeComponent', 
   props: {
     msg: String
   }
@@ -43,5 +54,18 @@ li {
 }
 a { 
   color: #2c3e50;
+}
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
 }
 </style>
