@@ -48,17 +48,53 @@
   </Transition>
   </template>
   
-  <script>
+  <script> 
+  import data from "../../Data/Kanji.json" 
+  // import Question from "../../models/Question.js"
+
   export default {
     name: 'PracticeIndex', 
     props: { 
     },
     data() { 
       return { 
-       
+        chapter : this.$route.params.chapter 
       }
     },
-    methods : { 
+    mounted() {  
+        this.generateQuestions();
+    },
+    methods : {  
+      generateQuestions() { 
+        // get all kanjis based on chapter   
+        const kanjis = data.kanjis.filter( kanji => { 
+          return kanji.chapter == this.chapter
+        })       
+
+
+      //shuffle
+      let shuffledKanjis = kanjis 
+        .map(value => ({ value, sort: Math.random() }))
+        .sort((a, b) => a.sort - b.sort) 
+        .map(({ value }) => value)         
+
+
+        let questions = [] 
+
+        for(var i = 0 ; i < shuffledKanjis.length ; i++ ) {     
+
+          const kanjiData = shuffledKanjis[i]   
+
+          // get random Question
+          const VocabQuestion = kanjiData.vocab[(Math.floor(Math.random()*kanjiData.vocab.length))]          
+
+          // generate Choices   
+
+          // create Object Question 
+
+
+        } 
+      }  
     }
   }
   </script>

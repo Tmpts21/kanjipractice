@@ -1,15 +1,14 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow" > 
 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
   <router-link to="/" class="navbar-brand">  
     <i class="fa-solid fa-language" style="font-size: 50px;"></i> 
   </router-link>
-  
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>  
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
       <li class="nav-item active"> 
             <router-link to="/Practice" class="btn btn-primary ml-3" style="color : white">  
               Practice 
@@ -20,9 +19,11 @@
               Learn
             </router-link>
       </li>
-    </ul>
+    </div>
   </div>
-</nav> 
+</nav>
+
+
   <router-view v-slot="{ Component, route }">
       <Transition name="slide-fade" mode="out-in">
         <div :key="route.name">  
@@ -30,7 +31,9 @@
         </div>
       </Transition>
     </router-view>
-  
+
+
+
 </template> 
 
 <script>

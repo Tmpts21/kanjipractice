@@ -1,30 +1,479 @@
 {
-   
-    "Chapters" : 
-    [
-        { 
-            "1" : { 
-                "一" : {
-                    "on" : ["いち","いっ","いつ"],
-                    "kun" : ["ひと"],
-                    "eng" : ["one"],
-                    "vocab" : [
-                        {
-                            "一": { 
-                                "hiragana" : "おち",
-                                "eng" : "one"
-                            }
-                        },
-                        {
-                            "一分": { 
-                                "hiragana" : "いっぷん",
-                                "eng" : "one minute"
-                            }
-                        }
-                    ]
-                }
+  "kanjis": [
+    {
+        "kanji" : "一" ,
+        "on": ["いち", "いっ", "いつ"],
+        "kun": ["ひと"],
+        "eng": ["one"],
+        "chapter": 1,
+        "vocab": [
+          {
+           "kanji" :  "一",
+              "hiragana": "おち",
+              "eng": "one"
+          },
+          {
+          "kanji" : "一分",
+              "hiragana": "いっぷん",
+              "eng": "one minute"
+          }
+        ]
+    },
+    {
+        "kanji" : "田" , 
+        "on": ["でん"],
+        "kun": ["た", "だ"],
+        "chapter": 4,
+        "eng": "rice field",
+        "vocab": [
+          {
+           "kanji" :  "田舎",
+              "hiragana": "いなか",
+              "eng": "countryside"
+          },
+          {
+           "kanji" : "田んぼ",
+              "hiragana": "でんぼ",
+              "eng": "rice field"
+          },
+          {
+           "kanji": "田植え",
+              "hiragana": "たうえ",
+              "eng": "rice planting"
+          },
+          {
+           "kanji": "田園",
+              "hiragana": "でんえん",
+              "eng": "rural district"
+          }
+        ]
+    },
+    {
+        "kanji" : "力" ,
+        "on": ["りょく", "りき"],
+        "kun": ["ちから"],
+        "chapter": 4,
+        "eng": "power",
+        "vocab": [
+          {
+           "kanji" :  "学力",
+              "hiragana": "がくりょく",
+              "eng": "academic ability"
+          },
+          {
+           "kanji" :  "電力",
+              "hiragana": "でんりょく",
+              "eng": "electric power"
+          },
+          {
+           "kanji": "視力",
+              "hiragana": "しりょく",
+              "eng": "rice planting"
+          },
+          {
+           "kanji" : "努力",
+              "hiragana": "どりょく",
+              "eng": "effort"
+          }
+        ]
+    },
+    {
+        "kanji" : "男",
+        "on": ["だん", "なん"],
+        "kun": ["おとこ"],
+        "chapter": 4,
+        "eng": "man",
+        "vocab": [
+          {
+           "kanji" : "男の子",
+              "hiragana": "おとこのこ",
+              "eng": "boy"
+          },
+          {
+           "kanji" :  "男の人",
+              "hiragana": "おとこのひと",
+              "eng": "man"
+          },
+          {
+           "kanji" : "男性",
+              "hiragana": "だんせい",
+              "eng": "male"
+          },
+          {
+           "kanji": "男子学生",
+              "hiragana": "だんしがくせい",
+              "eng": "male student"
+          },
+          {
+           "kanji": "長男",
+              "hiragana": "ちょうなん",
+              "eng": "the eldest son"
+          }
+        ]
+      },
+        {
+        "kanji" :  "女" ,
+        "on": ["じょ", "にょう", "にょ"],
+        "kun": ["おんな", "め"],
+        "chapter": 4,
+        "eng": "woman",
+        "vocab": [
+          {
+           "kanji" : "女の子",
+              "hiragana": "おんなのこ",
+              "eng": "girl"
+          },
+          {
+           "kanji" :  "女の人",
+              "hiragana": "おんなのひと",
+              "eng": "woman"
+          },
+          {
+            "kanji":"女性",
+              "hiragana": "じょせい",
+              "eng": "female"
+          },
+          {
+           "kanji": "長女",
+              "hiragana": "ちょうじょ",
+              "eng": "eldest daughter"
+          },
+          {
+           "kanji": "彼女",
+              "hiragana": "かのじょ",
+              "eng": "girlfriend"
+          }
+        ]
+    },
+    {
+        "kanji" :  "子" ,
+        "on": ["し", "す"],
+        "kun": ["こ"],
+        "chapter": 4,
+        "eng": "child",
+        "vocab": [
+          {
+           "kanji" :  "女子学生",
+              "hiragana": "じょしがくせい",
+              "eng": "female student"
+          }
+        ]
+    },
+    {
+     "kanji": "学",
+        "on": ["がく", "がっ"],
+        "kun": ["まな"],
+        "chapter": 4,
+        "eng": "learning",
+        "vocab": [
+          {
+           "kanji" :  "学生",
+              "hiragana": "がくせい",
+              "eng": "student"
+          },
+          {
+           "kanji" : "大学",
+              "hiragana": "だいがく",
+              "eng": "college"
+          },
+          {
+           "kanji" :  "学校",
+              "hiragana": "がっこう",
+              "eng": "school"
+          },
+          {
+           "kanji": "文学",
+              "hiragana": "ぶんがく",
+              "eng": "literature"
+          }
+        ]
+    },
+    {
+     "kanji" : "生" , 
+        "on": ["せい", "じょう", "しょう"],
+        "kun": ["う", "い", "は", "なま", "き", "お"],
+        "chapter": 4,
+        "eng": "birth",
+        "vocab": [
+          {
+           "kanji" : "生きる",
+              "hiragana": "いきる",
+              "eng": "to live"
+          },
+          {
+          "kanji":  "生まれる",
+              "hiragana": "うまれる",
+              "eng": "to be born"
+          },
+          {
+           "kanji" : "誕生日",
+              "hiragana": "たんじょうび",
+              "eng": "birthday"
+          }
+        ]
+    },
+    {
+     "kanji": "先" ,
+        "on": ["せん"],
+        "kun": ["さき"],
+        "chapter": 4,
+        "eng": "ahead",
+        "vocab": [
+          {
+            "kanji" : "先生", 
+              "hiragana": "せんせい",
+              "eng": "teacher"
+          },
+          {
+          "kanji" :  "先月",
+              "hiragana": "せんげつ",
+              "eng": "last month"
+          },
+          {
+           "kanji" :  "先週",
+              "hiragana": "せんしゅう",
+              "eng": "last week"
+          },
+          {
+           "kanji" :  "先祖",
+              "hiragana": "せんぞ",
+              "eng": "ancestor"
+          }
+        ]
+    },
+    {
+     "kanji" :  "何" ,
+        "on": ["か"],
+        "kun": ["なに", "なん"],
+        "chapter": 4,
+        "eng": "what",
+        "vocab": [
+          {
+           "kanji" :  "何か",
+              "hiragana": "なにか",
+              "eng": "something"
+          },
+          {
+           "kanji" : "何人",
+              "hiragana": "なんにん",
+              "eng": "how many people"
+          },
+          {
+           "kanji" : "何時",
+              "hiragana": "なんじ",
+              "eng": "what time"
+          },
+          {
+           "kanji" :  "何でも",
+              "hiragana": "なんでも",
+              "eng": "anything"
+          }
+        ]
+    },
+    {
+    "kanji" :   "ちち" ,
+        "on": ["ふ"],
+        "kun": ["ちち"],
+        "chapter": 4,
+        "eng": "father",
+        "vocab": [
+          {
+           "kanji" : "父の人",
+              "hiragana": "ちちのひと",
+              "eng": "fathers day"
+          },
+          {
+           "kanji" : "お父さん",
+              "hiragana": "おとうさん",
+              "eng": "father"
+          },
+          {
+           "kanji" : "祖父母",
+              "hiragana": "そふぼ",
+              "eng": "grandparents"
+          },
+          {
+            "kanji" : "叔父",
+              "hiragana": "おじ",
+              "eng": "uncle"
+          },
+          {
+            "kanji" : "父母",
+              "hiragana": "ふぼ",
+              "eng": "parents"
+          }
+        ]
+    },
+    {
+     "kanji" :  "母" ,
+        "on": ["ば"],
+        "kun": ["はは"],
+        "chapter": 4,
+        "eng": "mother",
+        "vocab": [
+          {
+           "kanji" : "お母さん",
+              "hiragana": "おかあさん",
+              "eng": "mother"
+          },
+          {
+           "kanji" :  "母の日",
+              "hiragana": "ははのひと",
+              "eng": "mothers day"
+          },
+          {
+            "kanji" : "叔母",
+              "hiragana": "おば",
+              "eng": "aunt"
+          }
+        ]
+    },
+    {
+     "kanji": "年" ,
+        "on": ["ねん"],
+        "kun": ["とし"],
+        "chapter": 4,
+        "eng": "year",
+        "vocab": [
+          {
+            "kanji" : "三年生",
+              "hiragana": "さんねんせい",
+              "eng": "third year student"
+          },
+          {
+           "kanji" : "一年",
+              "hiragana": "いちねん",
+              "eng": "one year"
+          },
+          {
+            "kanji" : "今年",
+              "hiragana": "ことし",
+              "eng": "this year"
+          },
+          {
+            "kanji" : "去年",
+              "hiragana": "きょねん",
+              "eng": "last year"
+          },
+          {
+           "kanji" : "毎年",
+              "hiragana": "まいとし",
+              "eng": "every year"
+          }
+        ]
+    },
+    {
+     "kanji": "去" ,
+        "on": ["きょ", "こ"],
+        "kun": ["さ"],
+        "chapter": 4,
+        "eng": "past",
+        "vocab": [
+          {
+           "kanji" : "除去する",
+              "hiragana": "じょきょする",
+              "eng": "to eliminate"
+          },
+          {
+            "kanji" : "去る",
+              "hiragana": "さる",
+              "eng": "to leave"
+          },
+          {
+           "kanji" : "消去する",
+              "hiragana": "しょうきょする",
+              "eng": "to erase"
+          }
+        ]
+    },
+    {
+     "kanji" :  "毎" ,
+        "on": ["まい"],
+        "kun": [],
+        "chapter": 4,
+        "eng": "every",
+        "vocab": [
+          {
+            "kanji" : "毎日",
+              "hiragana": "まいにち",
+              "eng": "everyday"
+          },
+          {
+           "kanji" :  "毎朝",
+              "hiragana": "まいあさ",
+              "eng": "every morning"
+          },
+          {
+           "kanji" : "毎晩",
+              "hiragana": "まいばん",
+              "eng": "every night"
+          },
+          {
+           "kanji" :  "毎月",
+              "hiragana": "まいつき",
+              "eng": "every month"
+          }
+        ]
+    },
+    {
+     "kanji": "王" ,
+        "on": ["おう"],
+        "kun": [],
+        "chapter": 4,
+        "eng": "king",
+        "vocab": [
+          {
+            "kanji" : "王様",
+              "hiragana": "おうさま",
+              "eng": "king"
+          },
+          {
+            "kanji" : "女王",
+              "hiragana": "じょおう",
+              "eng": "queen"
+          },
+          {
+            "kanji" :"王女",
+              "hiragana": "おうじょ",
+              "eng": "princess"
+          },
+          {
+            "kanji" : "王子",
+              "hiragana": "おうじ",
+              "eng": "prince"
             }
-        }
-    ]
-      
-} 
+        ]
+    },
+    {
+     "kanji": "国" ,
+        "on": ["こく", "ごく", "こっ"],
+        "kun": ["くに"],
+        "chapter": 4,
+        "eng": "country",
+        "vocab": [
+          {
+           "kanji" :  "国",
+              "hiragana": "くに",
+              "eng": "country"
+            }
+          ,
+          {
+            "kanji" : "中国",
+              "hiragana": "ちゅうごく",
+              "eng": "china"
+            }
+          ,
+          {
+            "kanji" : "国際",
+              "hiragana": "こくさい",
+              "eng": "international"
+            },
+          {
+            "kanji" : "国籍",
+              "hiragana": "こくせき",
+              "eng": "nationality"
+            }
+        ]
+      }
+  ]
+}
