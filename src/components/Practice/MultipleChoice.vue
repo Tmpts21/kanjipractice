@@ -111,9 +111,11 @@
                 answer = vocabQuestion.kanji 
                 choices.push(allVocabs[Math.floor(Math.random() * allVocabs.length )].kanji)     
               }    
-          } 
+          }  
 
-          this.questions.push(new Question(displayQuestion,vocabQuestion.kanji,vocabQuestion.hiragana,vocabQuestion.eng,'multiple' , answer , choices))
+          const shuffledChoices = this.shuffle(choices)
+
+          this.questions.push(new Question(displayQuestion,vocabQuestion.kanji,vocabQuestion.hiragana,vocabQuestion.eng,'multiple' , answer , shuffledChoices)) 
 
         } 
       },
