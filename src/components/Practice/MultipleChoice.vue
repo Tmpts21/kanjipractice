@@ -1,70 +1,70 @@
-<template>
-  <Transition name="slide-fade">
-    <div class="text-center">
-       <h1 class="font-weight-bold">
-        王
-       </h1> 
+<template> 
 
-       <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <div class="input-group-text">
-              <input type="checkbox" aria-label="Checkbox for following text input">
-            </div>
-          </div>
-          <input value="King" disabled type="text" class="form-control" aria-label="Text input with checkbox">
-      </div>
+    <div v-for="(question , index ) in questions" :key="index">        
+      <div v-if="currentCount == index">  
 
-      <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <div class="input-group-text">
-              <input type="checkbox" aria-label="Checkbox for following text input">
-            </div>
-          </div>
-          <input value="King" disabled type="text" class="form-control" aria-label="Text input with checkbox">
-      </div>
+          <div class="text-center">
+          <h1 class="font-weight-bold">  
+            {{question.question }}  
+          </h1>  
 
-      <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <div class="input-group-text">
-              <input type="checkbox" aria-label="Checkbox for following text input">
-            </div>
-          </div>
-          <input value="King" disabled type="text" class="form-control" aria-label="Text input with checkbox">
-      </div>
+          <div  v-for="(choice , index ) in question.listOfAnswers" :key="index" class="input-group mb-3">    
+              <input type="radio" id="one"  v-model="pickedAnswer" :value="choice" />  
+              <label for="one" class="ml-2 mt-2">{{ choice }}</label>
+          </div> 
 
-      <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <div class="input-group-text">
-              <input type="checkbox" aria-label="Checkbox for following text input">
-            </div>
-          </div>
-          <input value="King" disabled type="text" class="form-control" aria-label="Text input with checkbox">
-      </div>
+          <div v-if="index < questions.length" >
+            <button @click="nextQuestion(index)" class="btn btn-primary float-right"> Next <i class="ml-1 fa-solid fa-arrow-right"></i></button>   
+          </div>  
 
-      <div>
-        <button class="btn btn-primary float-right"> Next <i class="ml-1 fa-solid fa-arrow-right"></i></button>
+        </div> 
+      </div> 
+    </div>  
+
+      <div v-if="this.currentCount == this.questions.length "> 
+        <ScoreComponent :score="this.score" :noOfItems="this.questions.length"></ScoreComponent>
       </div>
-    </div>
-  </Transition>
   </template>
   
   <script> 
   import data from "../../Data/Kanji.json" 
-  // import Question from "../../models/Question.js"
+  import Question from "../../models/Question.js" 
+  import ScoreComponent from "../Score/Index.vue"
 
   export default {
-    name: 'PracticeIndex', 
+    name: 'PracticeIndex',  
+    components :{ 
+     ScoreComponent 
+    },
     props: { 
     },
     data() { 
       return { 
-        chapter : this.$route.params.chapter 
+        chapter : this.$route.params.chapter,
+        questions : [], 
+        currentCount : 0 , 
+        pickedAnswer : null ,
+        score : 0 ,
+        showScore : false , 
       }
     },
     mounted() {  
-        this.generateQuestions();
+        this.generateQuestions(); 
     },
-    methods : {  
+    methods : {     
+      
+      nextQuestion(index) {            
+        if(this.questions[index].answer == this.pickedAnswer) {
+          this.score++  
+          this.currentCount++ 
+          this.pickedAnswer = null 
+          return
+        }    
+        this.currentCount++
+        this.pickedAnswer = null     
+
+        return 
+      },
       generateQuestions() { 
         // get all kanjis based on chapter   
         const kanjis = data.kanjis.filter( kanji => { 
@@ -72,29 +72,62 @@
         })       
 
 
-      //shuffle
-      let shuffledKanjis = kanjis 
-        .map(value => ({ value, sort: Math.random() }))
-        .sort((a, b) => a.sort - b.sort) 
-        .map(({ value }) => value)         
-
-
-        let questions = [] 
+        //shuffle
+        let shuffledKanjis = this.shuffle(kanjis) 
 
         for(var i = 0 ; i < shuffledKanjis.length ; i++ ) {     
 
           const kanjiData = shuffledKanjis[i]   
 
           // get random Question
-          const VocabQuestion = kanjiData.vocab[(Math.floor(Math.random()*kanjiData.vocab.length))]          
+          const vocabQuestion = kanjiData.vocab[(Math.floor(Math.random()*kanjiData.vocab.length))]           
+          const allVocabs = []  
 
-          // generate Choices   
+          const dice = ['kanji','hiragana','eng'][Math.floor(Math.random() * 3 )] 
 
-          // create Object Question 
+          for(var j = 0 ; j < shuffledKanjis.length ; j++ ) {       
+            allVocabs.push(...shuffledKanjis[j].vocab) 
+          }        
 
+          let displayQuestion = ""
+          // get random choices   
+          let answer = "" 
+          let choices = []
+          if(dice =='kanji') {    
+          choices.push(vocabQuestion.hiragana) 
+          while (choices.length != 4 ) {     
+              displayQuestion = vocabQuestion.kanji 
+              answer = vocabQuestion.hiragana
+              choices.push(allVocabs[Math.floor(Math.random() * allVocabs.length )].hiragana) 
+            }    
+          } 
+          else {  
+            choices.push(vocabQuestion.kanji) 
+            while (choices.length != 4 ) {     
+                if(dice == 'eng') {  
+                  displayQuestion = vocabQuestion.eng   
+                }  
+                else {displayQuestion = vocabQuestion.hiragana}
+                answer = vocabQuestion.kanji 
+                choices.push(allVocabs[Math.floor(Math.random() * allVocabs.length )].kanji)     
+              }    
+          } 
+
+          this.questions.push(new Question(displayQuestion,vocabQuestion.kanji,vocabQuestion.hiragana,vocabQuestion.eng,'multiple' , answer , choices))
 
         } 
-      }  
+      },
+
+      shuffle(data) {  
+
+        let shuffled = data 
+          .map(value => ({ value, sort: Math.random() }))
+          .sort((a, b) => a.sort - b.sort) 
+          .map(({ value }) => value)          
+        
+        return shuffled
+
+      }
     }
   }
   </script>
@@ -115,13 +148,14 @@
   a {
     color: #42b983;
   }
+ 
 
-  .slide-fade-enter-active {
+.slide-fade-enter-active {
   transition: all 0.3s ease-out;
 }
 
 .slide-fade-leave-active {
-  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
 .slide-fade-enter-from,
@@ -129,5 +163,5 @@
   transform: translateX(20px);
   opacity: 0;
 }
-  </style>
+</style>
   

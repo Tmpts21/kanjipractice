@@ -1,11 +1,11 @@
 export default class Question { 
-    constructor (kanji , hiragana , eng , type , answer,  listOfAnswers = [] , typeOfQuestion  )  {    
+    constructor (question,kanji , hiragana , eng , type , answer,  listOfAnswers = []   )  {      
+        this.question = question
         this.kanji = kanji 
         this.hiragana = hiragana 
         this.eng = eng   
         this.type = type  
         this.listOfAnswers = listOfAnswers   
         this.answer = answer 
-        this.typeOfQuestion = typeOfQuestion
     }
 }
