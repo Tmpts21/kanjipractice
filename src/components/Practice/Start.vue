@@ -1,29 +1,21 @@
 <template> 
-
+    <br>
     <div v-for="(question , index ) in questions" :key="index">        
-      <div v-if="currentCount == index">  
+          <h5 class="font-weight-bold">  
+           <span>{{ index + 1 }}</span>. {{question.question }}  
+          </h5>  
 
-          <div class="text-center">
-          <h1 class="font-weight-bold">  
-            {{question.question }}  
-          </h1>  
-
-          <div  v-for="(choice , index ) in question.listOfAnswers" :key="index" class="input-group mb-3">    
-              <input type="radio" id="one"  v-model="pickedAnswer" :value="choice" />  
+          <div  v-for="(choice) in question.choices" :key="choice.id" class="input-group">      
+              <input @change="onChangeRadio($event , index )" type="radio" id="one" class="ml-1" v-model="question.chosed" :value="choice" />    
               <label for="one" class="ml-2 mt-2">{{ choice }}</label>
-          </div> 
+          </div>   
+          <br>
 
-          <div v-if="index < questions.length" >
-            <button @click="nextQuestion(index)" class="btn btn-primary float-right"> Next <i class="ml-1 fa-solid fa-arrow-right"></i></button>   
-          </div>  
-
-        </div> 
-      </div> 
-    </div>  
-
-      <div v-if="this.currentCount == this.questions.length "> 
-        <ScoreComponent :score="this.score" :noOfItems="this.questions.length"></ScoreComponent>
-      </div>
+      </div>  
+        {{ this.showScore }}
+        <div v-if="showScore">
+          <ScoreComponent :score="this.score" :noOfItems="this.questions.length"></ScoreComponent>
+        </div>
   </template>
   
   <script> 
@@ -32,7 +24,7 @@
   import ScoreComponent from "../Score/Index.vue"
 
   export default {
-    name: 'PracticeIndex',  
+    name: 'Start',  
     components :{ 
      ScoreComponent 
     },
@@ -40,36 +32,25 @@
     },
     data() { 
       return { 
-        chapter : this.$route.params.chapter,
+        chapters : this.$route.params.chapter, 
         questions : [], 
-        currentCount : 0 , 
-        pickedAnswer : null ,
-        score : 0 ,
-        showScore : false , 
+        showScore : false ,   
       }
     },
     mounted() {  
-        this.generateQuestions(); 
+        this.generateQuestions();  
     },
-    methods : {     
-      
-      nextQuestion(index) {            
-        if(this.questions[index].answer == this.pickedAnswer) {
-          this.score++  
-          this.currentCount++ 
-          this.pickedAnswer = null 
-          return
-        }    
-        this.currentCount++
-        this.pickedAnswer = null     
-
-        return 
-      },
+    methods : {       
       generateQuestions() { 
-        // get all kanjis based on chapter   
-        const kanjis = data.kanjis.filter( kanji => { 
-          return kanji.chapter == this.chapter
-        })       
+        // get all kanjis based on chapter       
+        let kanjis = []  
+
+        for( let i = 0 ; i < this.chapters.length ; i++) { 
+          const k = data.kanjis.filter( kanji => {
+              return kanji.chapter == this.chapters[i] 
+          })        
+          kanjis.push(...k) 
+        }
 
 
         //shuffle
@@ -81,12 +62,12 @@
 
           // get random Question
           const vocabQuestion = kanjiData.vocab[(Math.floor(Math.random()*kanjiData.vocab.length))]           
-          const allVocabs = []  
+          const vocabs = []  
 
           const dice = ['kanji','hiragana','eng'][Math.floor(Math.random() * 3 )] 
 
           for(var j = 0 ; j < shuffledKanjis.length ; j++ ) {       
-            allVocabs.push(...shuffledKanjis[j].vocab) 
+            vocabs.push(...shuffledKanjis[j].vocab) 
           }        
 
           let displayQuestion = ""
@@ -98,7 +79,7 @@
           while (choices.length != 4 ) {     
               displayQuestion = vocabQuestion.kanji 
               answer = vocabQuestion.hiragana
-              choices.push(allVocabs[Math.floor(Math.random() * allVocabs.length )].hiragana) 
+              choices.push(vocabs[Math.floor(Math.random() * vocabs.length )].hiragana) 
             }    
           } 
           else {  
@@ -109,15 +90,20 @@
                 }  
                 else {displayQuestion = vocabQuestion.hiragana}
                 answer = vocabQuestion.kanji 
-                choices.push(allVocabs[Math.floor(Math.random() * allVocabs.length )].kanji)     
+                choices.push(vocabs[Math.floor(Math.random() * vocabs.length )].kanji)     
               }    
           }  
 
           const shuffledChoices = this.shuffle(choices)
 
-          this.questions.push(new Question(displayQuestion,vocabQuestion.kanji,vocabQuestion.hiragana,vocabQuestion.eng,'multiple' , answer , shuffledChoices)) 
+          this.questions.push(new Question(displayQuestion,vocabQuestion.kanji,vocabQuestion.hiragana,vocabQuestion.eng , answer , shuffledChoices))  
 
         } 
+      }, 
+
+      onChangeRadio(event , index) {    
+        this.isAllquestionsAnswered()
+        return this.questions[index].chosed = event.target.value  
       },
 
       shuffle(data) {  
@@ -129,6 +115,19 @@
         
         return shuffled
 
+      },
+      isAllquestionsAnswered() {  
+        let counter = 0 
+        for(let i = 0 ; i < this.questions.length ; i++ ) { 
+          if(this.questions[i].chosed !== ""){
+           counter+=1 
+           }
+        }   
+        console.log(counter , this.questions.length)
+        if(counter == this.questionsLength ){ 
+          console.log('hit')
+          this.showScore = true   
+         } 
       }
     }
   }

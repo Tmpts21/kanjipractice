@@ -1,11 +1,12 @@
 export default class Question { 
-    constructor (question,kanji , hiragana , eng , type , answer,  listOfAnswers = []   )  {      
+    constructor (question,kanji , hiragana , eng , answer,  choices = [] , chosed = "" )  {         
         this.question = question
         this.kanji = kanji 
         this.hiragana = hiragana 
         this.eng = eng   
-        this.type = type  
-        this.listOfAnswers = listOfAnswers   
+        this.choices = choices   
         this.answer = answer 
+        this.chosed = chosed 
+
     }
 }

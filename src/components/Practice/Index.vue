@@ -2,42 +2,20 @@
   <div>
       <div class="container flex"  style="width : 65% ">
           <h5 class="font-weight-bold">Choose A Chapter 🤔</h5>
-        <div class="row">
+        <div class="row">  
           <div v-for="chapter in chapters" :key="chapter" class="col mt-2 ">
-          <button class="btn btn-secondary" 
-            :class="{ 'btn btn-outline-primary': this.chapterChosen === chapter }"
+          <button class="btn btn-primary" 
+            :class="{ 'btn btn-success': chaptersChosen.includes(chapter) }"  
             @click=ChooseChapter(chapter)>
             Chapter {{chapter}} 
           </button>
         </div>
         </div>
 
-        <h5 class="font-weight-bold mt-5">Quiz Type 🤔</h5>
-        <div class="row">
-          <div class="col p-1">
-            <button class="btn btn-secondary" 
-            :class="{ 'btn btn-outline-primary': this.quizTypeChosen === 'multiple' }"
-            @click="ChooseQuizType('multiple')">
-            Multiple Choice
-            </button>
-          </div>
-          <div class="col p-1">
-            <button class="btn btn-secondary" 
-            :class="{ 'btn btn-outline-primary': this.quizTypeChosen === 'matching' }"
-            @click="ChooseQuizType('matching')"
-            >
-            Matching
-          </button>
-          </div>
-        </div>
-
-        <div v-if="quizTypeChosen != null && chapterChosen != null ">
-
-          <router-link class="btn btn-primary float-right mt-5  font-weight-bold" :to="'/practice/' + this.chapterChosen + '/' + this.quizTypeChosen">
+        <div v-if="chaptersChosen.length > 0"> 
+          <router-link class="btn btn-primary float-right mt-5  font-weight-bold" :to="'/practice/' + this.chaptersChosen + '/start'">
               Start 📝
           </router-link>
-          
-           
         </div>
           
       </div>
@@ -56,19 +34,19 @@ export default {
   data() { 
     return { 
       chapters : 12 ,
-      chapterChosen : null ,
+      chaptersChosen : [] ,
       quizTypeChosen : null
     }
   },
   methods : { 
-    ChooseChapter(chapter ) { 
-      this.chapterChosen = chapter
-      console.log(this.chapterChosen);
+    ChooseChapter(chapter ) {  
+      if(this.chaptersChosen.includes(chapter)){ 
+        console.log('hit')
+        this.chaptersChosen = this.chaptersChosen.filter(item => item !== chapter ) 
+        return
+      } 
+      return this.chaptersChosen.push(chapter)  
     },
-    ChooseQuizType(type) { 
-      this.quizTypeChosen = type
-    }
-    
   }
 }
 </script>
