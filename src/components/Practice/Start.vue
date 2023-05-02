@@ -1,6 +1,8 @@
 <template> 
-    <br>
-    <div v-for="(question , index ) in questions" :key="index">        
+    <br> 
+    <div v-if="!showScore">  
+
+    <div v-for="(question , index ) in questions.slice( 0 , this.questions.length / 2 )" :key="index">         
           <h5 class="font-weight-bold">  
            <span>{{ index + 1 }}</span>. {{question.question }}  
           </h5>  
@@ -10,15 +12,31 @@
               <label for="one" class="ml-2 mt-2">{{ choice }}</label>
           </div>   
           <br>
+      </div>    
 
-      </div>  
-        {{ this.showScore }}
+    <div v-for="(question , index ) in questions.slice(this.questions.length / 2 , this.questions.length )" :key="index">           
+          <h5 class="font-weight-bold">  
+           <span>{{ index + 1 + this.questions.length / 2 }}</span>. {{question.question }}  
+          </h5>   
+          <div class="form-group">
+            <input type="text" class="form-control" id="answer" v-model="question.chosed">  
+          </div>
+
+          <br>
+      </div>   
+
+    </div>
+      <button class="btn btn-outline-primary float-right"  v-if="!showScore" @click="finish"> 
+        Finish 🎉
+      </button>  
+      <br>
         <div v-if="showScore">
           <ScoreComponent :score="this.score" :noOfItems="this.questions.length"></ScoreComponent>
         </div>
   </template>
   
-  <script> 
+  <script>  
+  /* eslint-disable vue/no-unused-components */
   import data from "../../Data/Kanji.json" 
   import Question from "../../models/Question.js" 
   import ScoreComponent from "../Score/Index.vue"
@@ -34,14 +52,15 @@
       return { 
         chapters : this.$route.params.chapter, 
         questions : [], 
-        showScore : false ,   
+        showScore : false ,     
+        score : 0 
       }
     },
     mounted() {  
-        this.generateQuestions();  
+        this.generateMultipleChoiceQuestions();  
     },
     methods : {       
-      generateQuestions() { 
+      generateMultipleChoiceQuestions() { 
         // get all kanjis based on chapter       
         let kanjis = []  
 
@@ -99,12 +118,24 @@
           this.questions.push(new Question(displayQuestion,vocabQuestion.kanji,vocabQuestion.hiragana,vocabQuestion.eng , answer , shuffledChoices))  
 
         } 
-      }, 
+      },  
+
 
       onChangeRadio(event , index) {    
-        this.isAllquestionsAnswered()
         return this.questions[index].chosed = event.target.value  
-      },
+      }, 
+
+      finish() {       
+        let score = 0 
+        for(let i = 0 ; i < this.questions.length ; i++ ) {  
+          if(this.questions[i].chosed === this.questions[i].answer) { 
+            score+=1  
+          }
+        }    
+        this.showScore = true  
+        this.score = score 
+        return score 
+      }, 
 
       shuffle(data) {  
 
@@ -116,19 +147,6 @@
         return shuffled
 
       },
-      isAllquestionsAnswered() {  
-        let counter = 0 
-        for(let i = 0 ; i < this.questions.length ; i++ ) { 
-          if(this.questions[i].chosed !== ""){
-           counter+=1 
-           }
-        }   
-        console.log(counter , this.questions.length)
-        if(counter == this.questionsLength ){ 
-          console.log('hit')
-          this.showScore = true   
-         } 
-      }
     }
   }
   </script>
